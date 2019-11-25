@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+  <title>My first Vue app</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+  <meta name="verify-admitad" content="267e4c6e2e" />
+</head>
+<body>
+  <div id="app" v-bind:title="title + ' ' + 'Zalupec'" >
+  	<h1 v-if="status2 == 1">its true залупец1 {{ alert }}</h1>
+  	<h1 v-else-if="status2 == 2">its true залупец2  vooo</h1>
+  	<h2 v-else>Неверный залупец {{ status2 }}</h2>
+    {{ message }}
+    <template v-if="status2 != 1">
+    	<h1>Lorem ipsum dolor sit amet</h1>
+    	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque iusto voluptatibus velit? Fugit rem cupiditate accusamus, ipsam, adipisci consectetur iste dolor labore expedita quisquam itaque delectus nesciunt nisi rerum iusto!</p>
+    </template>
+        <template>
+    	<h1 v-show="status">Lorem ipsum dolor sit amet</h1>
+    	<p class="mt-5" :class="{active: isActive, 'btn-outline-dark': isbtn}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque iusto voluptatibus velit? Fugit rem cupiditate accusamus, ipsam, adipisci consectetur iste dolor labore expedita quisquam itaque delectus nesciunt nisi rerum iusto!</p>
+    		<p :class="[ isbtn ? 'active dopClass' : 'disabled', 'default']" >Условный залупец</p>
+    </template>
+    <p :style="{color: 'blue', 'font-size': width *2 + 'px'}">Стайл ***упец</p>
+  
+	<ul>
+		<li v-for="item in list">{{ item }}</li>
+	</ul>
+	<ul>
+		<li v-for="(item, index) in list">index {{ index }}:{{ item }}</li>
+	</ul>
+
+	<ul>
+		<li v-for="item in user">{{ item.id + ':' +item.name }}</li>
+	</ul>
+  
+	<table border='5' @click="test"> 
+	<thead>
+		<th>ID</th>
+		<th>Имя</th>
+	</thead>
+		<tbody>
+			<tr v-for="user in user">
+				<td>{{ user.id }}</td>
+				<td>{{ user.name }}</td>
+			</tr>
+		</tbody>
+
+	</table>
+		<table border='1' @click="user[0].id = 20"> 
+	<thead>
+		<th>ID</th>
+		<th>Имя</th>
+	</thead>
+		<tbody>
+			<tr v-for="user in user">
+				<td>{{ user.id }}</td>
+				<td>{{ user.name }}</td>
+			</tr>
+		</tbody>
+
+	</table>
+ 
+  </div>
+  
+  <div id="app2">
+  	<button @click="hight">brataan ti naklikal {{ counter }}</button>
+  </div>
+
+	<div id="get">
+		<button type="button" @click="getHashTags">грузи</button>
+	
+	<ul>
+		<li v-for="hashtag in hashtag">{{ hashtag }}</li>
+	</ul>
+	<ul>
+		<li v-for="city in city">{{ city.city }} : {{ city.region }}</li>
+	</ul>
+	<span >{{textSearch}} : (количестов залупчиков {{textSearch.length}})</span>
+	<input type="text" size="50" v-model="textSearch" >
+
+	</div>
+
+  <script>
+var app = new Vue({
+	el:'#get',
+	data: {
+		hashtag: [],
+		city: [],
+		textSearch: '',
+		url: {
+			hashtag: 'https://dka-develop.ru/api?type=hashtag',
+			city: 'https://dka-develop.ru/api?type=city'
+		}
+	},
+	watch: {
+		textSearch: function() {
+			if(this.textSearch.length> 3) {
+				this.textSearch= 'вот это уже армия'
+			};
+		}
+	},
+
+	methods: {
+		getHashTags() {
+			axios.get(this.url.hashtag).then((response) => {
+				console.log(response.data);
+				this.hashtag = response.data;
+			}),
+			axios.get(this.url.city).then((response) => {
+				console.log(response.data);
+				this.city = response.data;
+			})
+		}
+	},
+	created: function() {
+		console.log(this.url.hashtag)
+	}
+
+
+})
+
+
+
+  var app = new Vue({
+  	el: '#app2',
+  	data: {
+  		counter:1
+  	},
+  	methods: {
+  		hight() {
+  			this.counter++;
+  		}
+  	},
+  	created: function() {
+  		this.counter = 3;
+  		this.hight();
+  	}
+
+  });
+
+    var app = new Vue({
+      el: '#app',
+      
+      data: {
+      	list: ['один','два','три','четрые'],
+      	user: [
+      			{id:1, name:'zalup'},
+      			{id:2, name:'vasja'}
+      	],
+      	created: function() {
+      		this.list
+      	},
+      	title: 'Hello Vue!11',
+        message: 'Hello Vue!',
+        status: 0,
+        isActive: false,
+        status2: 3,
+        isbtn: true,
+        alert: 'zalupec',
+        width : 15 
+      },
+        methods: {
+      	test(){
+      		alert(1);
+      	} 
+      }
+   
+    })
+
+
+
+  </script>
+</body>
+</html>
