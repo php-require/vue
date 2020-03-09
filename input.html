@@ -1,0 +1,67 @@
+
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+<html>
+   <head>
+      <title>VueJs Instance</title>
+      <script type = "text/javascript" src = "js/vue.js"></script>
+   </head>
+   <body>
+      <div id = "computed_props">
+         Kilometers : <input type = "text" v-model = "kilometers">
+         Meters : <input type = "text" v-model = "meters">
+      </div>
+      <script type = "text/javascript">
+         var vm = new Vue({
+            el: '#computed_props',
+            data: {
+               kilometers : 0,
+               meters:0
+            },
+            methods: {
+            },
+            computed :{
+            },
+            watch : {
+               kilometers:function(val) {
+                  this.kilometers = val;
+                  this.meters = val * 1000;
+               },
+               meters : function (val) {
+                  this.kilometers = val/ 1000;
+                  this.meters = val;
+               }
+            }
+         });
+      </script>
+   </body>
+</html>
