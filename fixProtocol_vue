@@ -1,0 +1,233 @@
+<link id="style" rel="stylesheet" href="assets/css/widget.css">
+{ignore}
+<div id="widget" class="mt-0 mb-2">
+	<div class="container px-0">
+		<div class="row bgw mx-2 mx-md-0 brd">
+			<div class="col-lg-6 col-12 px-0 px-lg-2">
+				<div id="welcome" class=" cardmars d-flex flex-column justify-content-between px-3 pt-3 pb-0 pb-lg-4">
+					<h3 class="fs32 fs20 bold">Welcome to Red Mars</h3>
+					<ul class="fs14 fs10 d-flex flex-column justify-content-between pt-0 mb-0">
+						<li>Trusted european regulated partner: licensed by <a href="http://www.cysec.gov.cy/home/">CySEC</a></li>
+						<li>Quick account verification</li>
+						<li>No commission on spreads</li>
+						<li>DMA: direct market access for all clients</li>
+						<li>Tech support in your language by natives</li>
+						<li>High Speed of execution</li>
+						<li>STP broker (straight-through processing)</li>
+					</ul>
+					<div class="fs12 fs10 ">
+						<button class="uc active" onclick="location.href = '[[~37]]'">Register now</button><button class="uc" onclick="location.href = '[[~7]]'">More benefits</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-12 px-0 ">
+			  <style>
+			    #forex .nav-tabs
+			    {
+			      padding: 0;
+			    }
+			    .nav-link {
+            padding: .25rem .5rem;
+          }
+ 
+           [v-cloak]::before {
+            content: 'Loading...';
+            color: var(--botlinebar);
+          }
+          [v-cloak] > * {
+            display:none;
+          }
+ 
+          .state-1, .fade-enter-active {
+            animation: .705s fade forwards;
+            color: black;
+          }
+          
+          .state-1, .fade-leave-active {
+            animation: .175s fade reverse;
+           color: rgb(66, 185, 131);
+          }
+          
+          .state-0, .fade-enter-active {
+            animation: .705s fade forwards;
+            color: black;
+          }
+          
+          .state-0, .fade-leave-active {
+            animation: .175s fade reverse;
+           color: red;
+          }
+          
+          .fade-enter, .fade-leave-to {
+            opacity: 0;
+          }
+          
+          @keyframe fade {
+            from {
+              opacity:0;
+              
+            }
+            to {
+              opacity:.5;
+             
+            }
+          } 
+  
+			  </style> 
+    
+        <div id="forex" class="cardmars py-2 pr-2 pl-2 py-sm-3 pr-sm-3 pl-sm-3 pl-lg-0">
+          
+        	<ul class="nav nav-tabs" id="myTab" role="tablist">
+        	  <li class="nav-item mr-2">
+        	    <a class="px-0 nav-link fs14 cb fs12 active" id="mostPopular-tab" data-toggle="tab" href="#mostPopular" role="tab" aria-controls="mostPopular" aria-selected="true">Most popular</a>
+        	  </li>
+        	  <li class="nav-item mr-2">
+        	    <a class="px-0 nav-link fs14 cb fs12" id="forex-tab" data-toggle="tab" href="#forexTable" role="tab" aria-controls="forexTable" aria-selected="false">Forex</a>
+        	  </li>
+        	</ul>
+        	
+        <div class="tab-content" id="widgetContent">
+             <!-- tabs Most Popular -->
+            <div class="tab-pane fade show active" id="mostPopular" role="tabpanel" aria-labelledby="mostPopular-tab">
+              <table class="table fs14 fs10 mb-1" >
+                <tbody v-cloak >
+                  <tr v-if="mostPopular"  v-for="item, index in mostPopular" v-bind:key="item"> 
+                      <th scope="row" class="pl-1 pl-lg-2">
+                        {{ item.forex }}
+                      </th>
+                      <td>
+                        <transition  name="fade" mode="out-in">
+                          <span :key="item.mDEntryPx_buy" v-bind:class="item.lastPrice" >  {{ item.mDEntryPx_buy }} </span>
+                        </transition>
+                       <button  v-on:click="buySell" class="fs10 uc">Buy</button>
+                     </td>
+                     <td>
+                        <transition  name="fade" mode="out-in" tag="div">
+                          <span :key="item.mDEntryPx_sell" v-bind:class="item.lastPrice">  {{ item.mDEntryPx_sell }} </span>
+                        </transition>
+                        <button  class="fs10 uc">Sell</button>
+                     </td>
+                     <td class="pr-1 pr-lg-2">
+                        <transition  name="fade" mode="out-in" tag="div">
+                          <span :key="item.percentageChange" v-bind:class="item.lastPrice">  {{ item.percentageChange }} </span>
+                        </transition>
+                        <transition  name="fade" mode="out-in">
+                        <span class="state-1" v-bind:class="item.lastPrice" v-if="item.lastPrice == 'state-1'">{{ UpArrow }}</span>
+                        <span class="state-0" v-else>{{ DownArrow }}</span>
+                        </transition>
+                     </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- tabs Most Popular end -->
+            
+            <!-- tabs Forex  -->
+              <div class="tab-pane fade" id="forexTable" role="tabpanel" aria-labelledby="forex-tab">
+                 <table class="table fs14 fs10 mb-1" >
+                  <tbody v-cloak>
+                    <tr v-if="forex"  v-for="item, index in forex" v-bind:key="item"> 
+                      <th scope="row" class="pl-1 pl-lg-2">
+                        {{ item.forex }}
+                      </th>
+                      <td>
+                        <transition  name="fade" mode="out-in">
+                          <span :key="item.mDEntryPx_buy" v-bind:class="item.lastPrice" >  {{ item.mDEntryPx_buy }} </span>
+                        </transition>
+                       <button  v-on:click="buySell" class="fs10 uc">Buy</button>
+                     </td>
+                     <td>
+                        <transition  name="fade" mode="out-in" tag="div">
+                          <span :key="item.mDEntryPx_sell" v-bind:class="item.lastPrice">  {{ item.mDEntryPx_sell }} </span>
+                        </transition>
+                        <button  class="fs10 uc">Sell</button>
+                     </td>
+                     <td class="pr-1 pr-lg-2">
+                        <transition  name="fade" mode="out-in" tag="div">
+                          <span :key="item.percentageChange" v-bind:class="item.lastPrice">  {{ item.percentageChange }} </span>
+                        </transition>
+                        <transition  name="fade" mode="out-in">
+                        <span class="state-1" v-bind:class="item.lastPrice" v-if="item.lastPrice == 'state-1'">{{ UpArrow }}</span>
+                        <span class="state-0" v-else>{{ DownArrow }}</span>
+                        </transition>
+                     </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            <!-- tabs Forex end-->
+            </div>
+        		<p class="fs14 fs10" style="color: #9a9a9a">Red Mars is mainly compensated for its services through the Bid/Ask spread.</p>
+        </div>
+			</div>
+		</div>
+	</div>
+</div>
+ 
+<script>
+$( document ).ready(function() {
+Vue.config.productionTip = false;
+    new Vue({
+    el: '#forex',
+    data() {
+      return {
+            dnone:false,
+            mostPopular:Array,
+            show: true,
+            blind:null,
+            UpArrow: "↑",
+            DownArrow: "↓",
+            forex:Array,
+            loading: true,
+            errored: false
+      };
+    },
+    methods: {
+      enterAnim: function() {
+         this.signalAnim = 'state-1'
+    },
+    readCookie: function(name) {
+      	var name_cook = name+"=";
+      	var spl = document.cookie.split(";");
+      	for(var i=0; i<spl.length; i++) {
+      		var c = spl[i];
+      		while(c.charAt(0) == " ") {
+      			c = c.substring(1, c.length);
+      		}
+      		if(c.indexOf(name_cook) == 0) {
+      			return c.substring(name_cook.length, c.length);
+      		}
+      	}
+      	return null;
+    },
+    buySell: function(){
+          if (event) {
+            let UrlSellBuy = this.readCookie("UrlSellBuy")
+            if (UrlSellBuy) {
+                 window.location = 'https://member.redmars.trade/auth/login?token='+ UrlSellBuy +'&returnUrl=/platforms&statusPopup=false'
+              }
+            else {
+              window.location = 'https://redmars.trade/registration'
+            }
+          }
+      },
+    	pollData () {
+    		this.lmax = setInterval(() => {
+    	 
+    		  axios.get('https://redmars.trade/fix').then(response => (this.lmax = response, 
+             this.mostPopular = response.data.mostPopular,
+             this.forex = response.data.forex
+             ))
+    		}, 1000)
+    	}
+    },
+    beforeDestroy () {
+    	clearInterval(this.polling)
+    },
+    created () {
+    	this.pollData()
+    }
+  });
+});
+</script>
+{/ignore} 
